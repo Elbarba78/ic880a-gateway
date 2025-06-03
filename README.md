@@ -7,7 +7,7 @@ This installer targets the **USB version** of the board, if you have the SPI ver
 ## Setup based on Raspbian image
 
 - Download [Raspbian Jessie Lite](https://www.raspberrypi.org/downloads/)
-- Follow the [installation instruction](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) to create the SD card
+- Follow the [installation instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) to create the SD card
 - Start your RPi connected to Ethernet
 - Plug the iC880a (**WARNING**: first power plug to the wall socket, then to the gateway DC jack, and ONLY THEN USB to RPi!)
 - From a computer in the same LAN, `ssh` into the RPi using the default hostname:
