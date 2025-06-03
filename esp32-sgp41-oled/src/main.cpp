@@ -3,11 +3,12 @@
 #include <Adafruit_SSD1306.h>
 #include <SensirionI2CSgp41.h>
 
+// Dimensioni dello schermo OLED
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 
-// I2C pins used for both the SGP41 sensor and the SSD1306 display
+// Piedini I2C condivisi da SGP41 e display SSD1306
 #define SDA_PIN 21
 #define SCL_PIN 22
 
@@ -16,30 +17,32 @@ SensirionI2CSgp41 sgp41;
 
 void setup() {
     Serial.begin(115200);
-    // Initialize I2C bus with explicit pins
+    // Inizializzo il bus I2C con i pin definiti sopra
     Wire.begin(SDA_PIN, SCL_PIN);
 
     if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-        Serial.println(F("OLED init failed"));
-        while (true)
-            ;
+        Serial.println(F("Errore inizializzazione OLED"));
+        while (true) {
+            // Resto bloccato finché il display non viene inizializzato correttamente
+        }
     }
 
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 0);
-    display.println(F("SGP41 Demo"));
+    display.println(F("Demo SGP41"));
     display.display();
 
     sgp41.begin(Wire);
-    // Conditioning, uses default values for humidity and temperature (0)
+    // Avvio la fase di condizionamento con umidità e temperatura predefinite (0)
     sgp41.executeConditioning(0, 0);
 }
 
 void loop() {
     uint16_t vocRaw = 0;
     uint16_t noxRaw = 0;
+
     if (sgp41.measureRawSignal(vocRaw, noxRaw) == 0) {
         display.clearDisplay();
         display.setCursor(0, 0);
@@ -49,7 +52,8 @@ void loop() {
         display.println(noxRaw);
         display.display();
     } else {
-        Serial.println(F("SGP41 read failed"));
+        Serial.println(F("Errore lettura SGP41"));
     }
+
     delay(1000);
 }

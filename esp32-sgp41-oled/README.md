@@ -1,45 +1,35 @@
-# ESP32-S3 SGP41 OLED Demo
+# Demo ESP32-S3 SGP41 OLED
 
-This example project shows how to read air quality data from the Sensirion SGP41 sensor
-and display the raw values on a 0.96" OLED (SSD1306 128x64 dots) using C++ on the
-Arduino framework. Hardware power is controlled with a lever switch and a
-rechargeable 18650 battery using a TP4056 charging module with overcharge
-protection.
+Questo esempio mostra come leggere i valori grezzi di VOC e NOx dal sensore Sensirion SGP41 e visualizzarli su un display OLED SSD1306 da 0,96" con il framework Arduino. L'alimentazione avviene tramite batteria 18650 ricaricata da un modulo TP4056 e controllata da un interruttore MTS-103.
 
 ## Hardware
 
-- **Microcontroller**: ESP32-S3 module
-- **Gas sensor**: Sensirion SGP41 (I²C address `0x59`)
-- **Display**: 0.96" OLED, SSD1306 controller, 128x64 pixels (I²C)
-- **Power**: 18650 Li-Ion battery, TP4056 charger with protection, MTS-103 toggle
-  switch to cut power
+- **Microcontrollore**: modulo ESP32-S3
+- **Sensore gas**: Sensirion SGP41 (indirizzo I²C `0x59`)
+- **Display**: OLED 0,96" SSD1306, 128x64 pixel
+- **Alimentazione**: batteria 18650, caricatore TP4056 con protezione e interruttore a levetta MTS-103
 
-### Wiring
+### Collegamenti
 
-| ESP32-S3 Pin | SGP41 | OLED |
-|--------------|-------|------|
-| 3V3          | VCC   | VCC  |
-| GND          | GND   | GND  |
-| GPIO21 (SDA) | SDA   | SDA  |
-| GPIO22 (SCL) | SCL   | SCL  |
+| Pin ESP32-S3  | SGP41 | OLED |
+|---------------|-------|------|
+| 3V3           | VCC   | VCC  |
+| GND           | GND   | GND  |
+| GPIO21 (SDA)  | SDA   | SDA  |
+| GPIO22 (SCL)  | SCL   | SCL  |
 
-The example defines these pins as `SDA_PIN` and `SCL_PIN` in `src/main.cpp`. If
-your board uses different I²C pins, adjust the constants accordingly.
+Nel codice questi pin sono definiti come `SDA_PIN` e `SCL_PIN`. Se la tua scheda usa pin differenti, modifica queste costanti in `src/main.cpp`.
 
-Connect the battery to the TP4056 module, then to the MTS-103 switch, and finally
-feed the ESP32's `VBAT` or `5V` input (according to your module). The charger
-module prevents overcharging of the cell.
+Collega la batteria al modulo TP4056, quindi all'interruttore MTS-103 e infine al pin di alimentazione dell'ESP32 ("VBAT" o "5V" a seconda del modulo). Il TP4056 protegge la cella da sovraccarica.
 
-## Build
+## Compilazione
 
-Use PlatformIO or the Arduino IDE with ESP32 core 2.0 or later. Required
-libraries:
+Usa PlatformIO o l'Arduino IDE (core ESP32 >= 2.0). Le librerie necessarie sono:
 
 - `Adafruit SSD1306`
 - `Adafruit GFX`
 - `Sensirion I2C SGP41`
 
-## Usage
+## Utilizzo
 
-Upload the sketch in `src/main.cpp` to your board. The display shows the raw VOC
-and NOx signals reported by the SGP41 every second.
+Carica lo sketch in `src/main.cpp` sulla tua scheda. Il display mostrerà ogni secondo i valori grezzi di VOC e NOx letti dal sensore.
