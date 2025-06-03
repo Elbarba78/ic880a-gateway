@@ -23,6 +23,9 @@ protection.
 | GPIO21 (SDA) | SDA   | SDA  |
 | GPIO22 (SCL) | SCL   | SCL  |
 
+The example defines these pins as `SDA_PIN` and `SCL_PIN` in `src/main.cpp`. If
+your board uses different I²C pins, adjust the constants accordingly.
+
 Connect the battery to the TP4056 module, then to the MTS-103 switch, and finally
 feed the ESP32's `VBAT` or `5V` input (according to your module). The charger
 module prevents overcharging of the cell.

@@ -7,12 +7,17 @@
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 
+// I2C pins used for both the SGP41 sensor and the SSD1306 display
+#define SDA_PIN 21
+#define SCL_PIN 22
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 SensirionI2CSgp41 sgp41;
 
 void setup() {
     Serial.begin(115200);
-    Wire.begin();
+    // Initialize I2C bus with explicit pins
+    Wire.begin(SDA_PIN, SCL_PIN);
 
     if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
         Serial.println(F("OLED init failed"));
